@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import M                   from 'materialize-css/dist/js/materialize.min.js';
-import { connect }         from 'react-redux';
-import PropTypes           from 'prop-types';
-import { addLog }          from '../../../actions/logActions';
+import React, { useEffect, useState } from 'react';
+import M                              from 'materialize-css/dist/js/materialize.min.js';
+import { connect }                    from 'react-redux';
+import PropTypes                      from 'prop-types';
+import { addLog }                     from '../../../actions/logActions';
+import { getTechs }                   from '../../../actions/techActions';
+import TechOptions                    from '../techs/TechOptions';
 
-const AddLogModal = ({addLog}) => {
+const AddLogModal = ({addLog, getTechs}) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState('');
 
+
+  useEffect(() => {
+    getTechs();
+  }, []);
   const onSubmit = () => {
     if (!message || !tech) {
-      M.toast({ html: 'Please enter a message and tech' });
+      M.toast({html: 'Please enter a message and tech'});
     } else {
       const newLog = {
         message,
@@ -39,11 +45,9 @@ const AddLogModal = ({addLog}) => {
           <div className="input-field">
             <select name='tech' value={tech} onChange={e => setTech(e.target.value)} className='browser-default'>
               <option value="" disabled>Select technician</option>
-              <option value="John DOE">John DOE</option>
-              <option value="Sam Smith">Sam Smith</option>
-              <option value="Sara Wilson">Sara Wilson</option>
+              <TechOptions />
             </select>
-          </div>
+          </ div>
         </div>
 
         <div className="row">
@@ -74,4 +78,4 @@ const modalStyle = {
   height: '75%',
 };
 
-export default connect(null, {addLog})(AddLogModal);
+export default connect(null, {addLog, getTechs})(AddLogModal);

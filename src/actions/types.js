@@ -1,3 +1,4 @@
+/******************* LOGS *********************/
 export const SET_LOADING = 'SET_LOADING';
 export const GET_LOGS = 'GET_LOGS';
 export const LOGS_ERROR = 'LOGS_ERROR';
@@ -7,3 +8,7 @@ export const DELETE_LOG = 'DELETE_LOG';
 export const SET_CURRENT = 'SET_CURRENT';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const SEARCH_LOGS = 'SEARCH_LOGS';
+
+/******************* TECHS *********************/
+export const GET_TECHS = 'GET_TECHS';
+export const TECHS_ERROR = 'TECHS_ERROR';

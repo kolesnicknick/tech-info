@@ -37,7 +37,6 @@ export default (state = initialState, action) => {
         logs: action.payload,
         loading: false,
       };
-
     case TYPES.SET_CURRENT:
       return {
         ...state,
