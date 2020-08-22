@@ -14,6 +14,18 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
       };
+    case TYPES.ADD_LOG:
+      return {
+        ...state,
+        logs: [...state.logs, action.payload],
+        loading: false,
+      };
+    case TYPES.DELETE_LOG:
+      return {
+        ...state,
+        logs: [...state.logs].filter(log => log.id !== action.payload),
+        loading: false,
+      };
     case TYPES.LOGS_ERROR:
       return {
         ...state,
@@ -25,6 +37,27 @@ export default (state = initialState, action) => {
         logs: action.payload,
         loading: false,
       };
+
+    case TYPES.SET_CURRENT:
+      return {
+        ...state,
+        current: action.payload,
+      }
+    case TYPES.CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null,
+      }
+    case TYPES.SEARCH_LOGS:
+      return {
+        ...state,
+        logs: action.payload,
+      }
+    case TYPES.UPDATE_LOG:
+      return {
+        ...state,
+        logs: state.logs.map(log => log.id === action.payload.id ? action.payload : log),
+      }
     default:
       return state;
   }

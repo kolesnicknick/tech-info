@@ -34,6 +34,118 @@ export const getLogs = () => async dispatch => {
    }
 }
 
+export const searchLogs  = ( text ) => async dispatch => {
+  try {
+    setLoading();
+
+    const res = await fetch(`/logs?q=${text}`);
+    const data = await res.json();
+
+    dispatch({
+      type: TYPES.SEARCH_LOGS,
+      payload: data,
+    });
+  }
+  catch (e){
+    dispatch({
+      type: TYPES.LOGS_ERROR,
+      payload: e.response.data,
+    });
+  }
+}
+
+export const addLog = ( log ) => async dispatch => {
+  try {
+    setLoading();
+
+    const res = await fetch('/logs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(log),
+    });
+    const data = await res.json();
+
+    dispatch({
+      type: TYPES.ADD_LOG,
+      payload: data,
+    });
+  }
+  catch (e){
+    dispatch({
+      type: TYPES.LOGS_ERROR,
+      payload: e.response.data,
+    });
+  }
+}
+
+export const updateLog = ( log ) => async dispatch => {
+  try {
+    setLoading();
+
+    const res = await fetch(`/logs/${log.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(log),
+    });
+    const data = await res.json();
+
+    dispatch({
+      type: TYPES.UPDATE_LOG,
+      payload: data,
+    });
+  }
+  catch (e){
+    dispatch({
+      type: TYPES.LOGS_ERROR,
+      payload: e.response.data,
+    });
+  }
+}
+
+export const deleteLog = ( id ) => async dispatch => {
+  try {
+    setLoading();
+
+    const res = await fetch(`/logs/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = await res.json();
+
+    dispatch({
+      type: TYPES.DELETE_LOG,
+      payload: id,
+    });
+  }
+  catch (e){
+    dispatch({
+      type: TYPES.LOGS_ERROR,
+      payload: e.response.data,
+    });
+  }
+}
+
+export const setCurrent = (log) => {
+  return {
+    type: TYPES.SET_CURRENT,
+    payload: log,
+  }
+}
+
+export const clearCurrent = () => {
+  return {
+    type: TYPES.CLEAR_CURRENT,
+  }
+}
+
+
+
 export const setLoading = () => {
   return {
     type: TYPES.SET_LOADING

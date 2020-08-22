@@ -5,7 +5,7 @@ import { connect }                    from 'react-redux';
 import PropTypes                      from 'prop-types';
 import { getLogs }                      from '../../../actions/logActions';
 
-const Logs = ({ globalLogs: { logs, loading }, getLogs }) => {
+const Logs = ({ globalLogs: { logs, loading }, getLogs  }) => {
   useEffect(() => {
     getLogs();
   }, []);
@@ -30,7 +30,8 @@ const Logs = ({ globalLogs: { logs, loading }, getLogs }) => {
 };
 
 Logs.propTypes = {
-  globalLogs: PropTypes.object.isRequired
+  globalLogs: PropTypes.object.isRequired,
+  logs: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
